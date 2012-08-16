@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content="Интернет магазин гаджетов для энкаунтера" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="stoly.ru" />
+	<meta name="copyright" content="storly.ru" />
+	<title>Интернет магазин</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	
+		
+</head>
+<script>
+<!-- hide\show btn add to cart -->	
+$(document).ready(function () {
+    
+    $(".goods-out").hover(
+        function () {
+            $(this).find(".btn-add-cart").show();
+        },
+        function () {
+            $(this).find(".btn-add-cart").hide();
+        }
+    );
+});
+<!-- input placegolder -->
+jQuery(function() {
+    jQuery.support.placeholder = false;
+    test = document.createElement('input');
+    if('placeholder' in test) jQuery.support.placeholder = true;
+});
+$(function(){
+    if(!$.support.placeholder) {
+        var active = document.activeElement;
+        $(':text').focus(function () {
+            if ($(this).attr('placeholder') != '' && $(this).val() == $(this).attr('placeholder')) {
+                $(this).val('').removeClass('hasPlaceholder');
+            }
+        }).blur(function () {
+            if ($(this).attr('placeholder') != '' && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
+                $(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
+            }
+        });
+        $(':text').blur();
+        $(active).focus();
+        $('form').submit(function () {
+            $(this).find('.hasPlaceholder').each(function() { $(this).val(''); });
+        });
+    }
+    $(".hasPlaceholder").css("color", "#777777");
+});
+<!-- popup -->
+$(document).ready(function(){
+ //Подстраивает высоту слоя наложения, чтобы полностью окно было заполено при нажатии на ссылку
+  $(".fade").css("height", $(document).height());
+ //При нажатии на ссылку запускается процес
+  $(".btn-callback").click(function(){
+
+  $(".fade").fadeIn();
+  return false;
+  });
+ //При закрытии окна - все возвращается на свои места
+  $(".cls").click(function(){
+  $(".fade").fadeOut();
+  return false;
+  });
+});
+//Данные строки следят за правильным отображением, если даже пользователь изменил размер окна браузера
+$(window).bind("resize", function(){
+   $(".fade").css("height", $(window).height()); 
+
+});
+</script>
+<!--[if lte IE 7]>
+<style type="text/css">
+  .iefix {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+  }
+</style>
+<![endif]-->
+<body>
+	<div class="fade">
+		<div class="clbck-box">
+		<div class="scrt-icon"></div>
+			<h2>Оставьте Ваш контактный номер телефона и мы перезвоним Вам</h2>
+			<form name="review" action="" method="post" id="review-form">
+			<ul class="clr">
+				<li><input  maxlength="40"  class="input" name="" id="" value="" onfocus="" type="text" placeholder="Контактный номер телефона"></li>
+				<li><input  maxlength="40"  class="input" name="" id="" value="" onfocus="" type="text" placeholder="Комментарий""></li>
+				<li class="clr"><input type="button" title="Отправить отзыв" class="btn-clbck-popup"><a href="javascript:void(0)"  title="Корзина товаров" class="cls">Закрыть</a></li>
+				<li><p>Мы гарантируем конфиденциальность и безопасность данных</p></li>
+			</ul>
+			</form>
+		</div>
+	</div>
+	
+	
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+			<a href="img/good-b.jpg" title="storly.ru">
+				<span class="logo-wrap">
+					<span class="logo-header">Интернет магазин</span><br>
+					<span class="logo-dscr">гаджетов для ночного дозора и энкаунтера с доставкой по всей России</span>
+				</span>
+				 <span class="iefix">&nbsp;</span> 
+			</a>
+			</div>
+			<div class="cart">
+				<a href="javascript:void(0)"  title="Корзина товаров" >
+					<div class="cart-icon"></div>
+					<span>1шт. 99 995р.</span>
+				</a>
+			</div>
+			<div class="tel-header">
+				<div class="cta-callback">Есть вопросы?Звоните!</div>
+					<a href="javascript:void(0)"  title="Обратный звонок" class="btn-callback">8 (800) 333-12-73</a>
+				</div>
+		</div>
+		<div id="header-menu">
+			<div class="header-menu">
+				<a href="javascript:void(0)"  title="Каталог товаров">КАТАЛОГ ТОВАРОВ</a> 
+			</div>
+			<ul class="header-menu">
+					<li><a href="javascript:void(0)"  title="Гарантия и возврат" >ГАРАНТИЯ И ВОЗВРАТ</a></li>
+					<li><a href="javascript:void(0)"  title="доставка и оплата" >ДОСТАВКА И ОПЛАТА</a></li>
+					<li><a href="javascript:void(0)"  title="контакты" >КОНТАКТЫ</a></li>
+					<li><a href="javascript:void(0)"  title="О нас" >О НАС</a></li>
+			</ul>
+		</div>
+		<div id="slider">
+			<a href=""title="Скидки 50%">
+				<div class="slide-out">
+					<img src="img/slide1.jpg"  alt="Скидки 50%" class="slide-img">
+					<div class="slide-txt">
+						<h1>КУПИ ФОНАРЬ ФЕНИКС</h1>
+						<h2>24 часа без подзарядки. </h2>
+						<div class="learn-more"><span>Узнать больше</span><span class="arrow-s-w"></span></div>
+					</div>
+				</div>
+				
+			</a>
+		</div>
+		<div id="like-bar">
+			<h2>100% ГАРАНТИЯ ВОЗВРАТА &nbsp&nbsp ДОСТАВКА ПО ВСЕЙ РОССИИ</h2>
+			<div class="arrow-big"></div>
+			<div class="like"><img src="img/like.png"></div>
+		</div>
+		<div id="newslatter">
+			<ul class="newslatter">
+				<form name="newslatter" action="" method="post" id="newslatter-form">
+					<li class="st">Подпишись на новости</li>
+					<li><h2>ПОЛУЧИ ПОДАРОК</h2></li>
+					<li>
+						<input size="20" maxlength="30" class="input" name="" id="" value="" onfocus="" type="text" placeholder="Ваш e-mail адрес ">
+						<input type="button" value="Отправить" title="Отправить" class="btn-ok">
+					</li>
+				</form>
+			</ul>
+		</div>
+		<div id="cat-list">
+			<div class="cat-box">
+				<div>
+					<a href="#" title="Ультрафиолетовые фонари">
+						<img " src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+					</a>
+				</div>
+				<h2><a href="#">Ультрафиолетовые фонари</a></h2>
+			</div>
+			<div class="cat-box">
+				<div >
+					<a href="#" title="Ультрафиолетовые фонари">
+						<img " src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+					</a>
+				</div>
+				<h2>
+					<a href="#">Зарядные устройства и аксессуары</a>
+				</h2>
+			</div>
+			<div class="cat-box">
+				<div>
+					<a href="#" title="Ультрафиолетовые фонари">
+						<img " src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+					</a>
+				</div>
+				<h2>
+					<a href="#">Ручные фонари</a>
+				</h2>
+			</div>
+		</div>
+		<div id="social-wrap">
+			<div id="social-widget">
+				<img " src="img/vk.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+			</div>
+			<div id="review-last">
+				<h2>ПОСЛЕДНИЕ ОТЗЫВЫ</h2>
+				<div class="review-s">
+					<div class="fl">
+						<img src="img/good-s.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+					</div>
+					<div class="review-s-cnt">
+						<h2>
+							<a href="#" title="Ультрафиолетовые фонари">Fenix TK50 R5</a>
+						</h2>
+						<div>
+							<span class="star-s-f"></span>
+							<span class="star-s-h"></span>
+							<span class="star-s-n"></span>
+							<span  class="star-s-n"></span>
+							<span  class="star-s-n"></span>
+						</div>
+						<a href="#" title="Ультрафиолетовые фонари"><p>Огромное спасибо за фонарь. Феникс ТК 35 просто обалденен. ночь на локе ....</p></a>
+					</div>
+				</div>
+				<div class="review-s">
+					<div class="fl">
+						<img src="img/good-s.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+					</div>
+					<div class="review-s-cnt">
+						<h2>
+							<a href="#" title="Ультрафиолетовые фонари">Fenix TK50 R5</a>
+						</h2>
+						<div>
+							<span class="star-s-f"></span>
+							<span class="star-s-h"></span>
+							<span class="star-s-n"></span>
+							<span  class="star-s-n"></span>
+							<span  class="star-s-n"></span>
+						</div>
+						<a href="#" title="Ультрафиолетовые фонари"><p>Огромное спасибо за фонарь. Феникс ТК 35 просто обалденен. ночь на локе ....</p></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="pop-goods-wrap">
+			<h2>НАШИ КЛИЕНТЫ ЧАЩЕ ВСЕГО ВЫБИРАЮТ СЛЕДУЮЩИЕ ТОВАРЫ
+			</h2>
+			<div class="goods-box">
+				<div class="goods-out">
+					<div>
+						<a href="#" title="Ультрафиолетовые фонари">
+							<img src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+						</a>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><h2>Fenix TK11 R5</h2></a>
+					<div>
+							<span class="star-s-f"></span >
+							<span class="star-s-h"></span >
+							<span class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="st"><a href="#" title="Ультрафиолетовые фонари">(4)</a></span >
+					</div>
+					<div>
+						<span class="price-old">4000 руб</span><span class="price">2999 руб</span>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><div class="btn-add-cart"></div></a>
+							
+				</div>
+			</div>
+			<div class="goods-box">
+				<div class="goods-out">
+					<div>
+						<a href="#" title="Ультрафиолетовые фонари">
+							<img src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+						</a>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><h2>Fenix TK11 R5</h2></a>
+					<div>
+							<span class="star-s-f"></span >
+							<span class="star-s-h"></span >
+							<span class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="st"><a href="#" title="Ультрафиолетовые фонари">(4)</a></span >
+					</div>
+					<div>
+						<span class="price-old">4000 руб</span><span class="price">2999 руб</span>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><div class="btn-add-cart"></div></a>
+							
+				</div>
+			</div>
+			<div class="goods-box">
+				<div class="goods-out">
+					<div>
+						<a href="#" title="Ультрафиолетовые фонари">
+							<img src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+						</a>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><h2>Fenix TK11 R5</h2></a>
+					<div>
+							<span class="star-s-f"></span >
+							<span class="star-s-h"></span >
+							<span class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="st"><a href="#" title="Ультрафиолетовые фонари">(4)</a></span >
+					</div>
+					<div>
+						<span class="price-old">4000 руб</span><span class="price">2999 руб</span>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><div class="btn-add-cart"></div></a>
+							
+				</div>
+			</div>
+			<div class="goods-box">
+				<div class="goods-out">
+					<div>
+						<a href="#" title="Ультрафиолетовые фонари">
+							<img src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+						</a>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><h2>Fenix TK11 R5</h2></a>
+					<div>
+							<span class="star-s-f"></span >
+							<span class="star-s-h"></span >
+							<span class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="st"><a href="#" title="Ультрафиолетовые фонари">(4)</a></span >
+					</div>
+					<div>
+						<span class="price-old">4000 руб</span><span class="price">2999 руб</span>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><div class="btn-add-cart"></div></a>
+							
+				</div>
+			</div>
+			<div class="goods-box">
+				<div class="goods-out">
+					<div>
+						<a href="#" title="Ультрафиолетовые фонари">
+							<img src="img/good-m.jpg" alt="Ультрафиолетовые фонари" title="Ультрафиолетовые фонари">
+						</a>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><h2>Fenix TK11 R5</h2></a>
+					<div>
+							<span class="star-s-f"></span >
+							<span class="star-s-h"></span >
+							<span class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="star-s-n"></span >
+							<span  class="st"><a href="#" title="Ультрафиолетовые фонари">(4)</a></span >
+					</div>
+					<div>
+						<span class="price-old">4000 руб</span><span class="price">2999 руб</span>
+					</div>
+					<a href="#" title="Ультрафиолетовые фонари"><div class="btn-add-cart"></div></a>
+							
+				</div>
+			</div>
+			
+				
+		</div>
+		<div id="footer">
+			<h2>
+				КОНСУЛЬТАЦИ Я И ЗАКАЗ ПО ТЕЛЕФОНУ <a href="#" title="Ультрафиолетовые фонари"> 8 (800) 756 44 22</a>
+			</h2>
+			<div class="footer-bottom">
+				<ul class="footer-menu">
+						<li><a href="javascript:void(0)"  title="Гарантия и возврат" >Каталог товаров</a></li>
+						<li><a href="javascript:void(0)"  title="доставка и оплата" >Гарантия и возврат</a></li>
+						<li><a href="javascript:void(0)"  title="контакты" >доставка и оплата</a></li>
+						<li><a href="javascript:void(0)"  title="О нас" >О нас</a></li>
+						<li><a href="javascript:void(0)"  title="О нас" >Контакты</a></li>
+					</ul>
+				<p>
+				2012 © <a class="link" href="#" title="Ультрафиолетовые фонари">dozorgadgets.ru</a> все права защищены. Интерент магазин разработан с помощью сервиса <a class="link" href="#" title="Ультрафиолетовые фонари">Storly<a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div id="wrap-bottom">
+	</div>
+		
+</body>
+</html>

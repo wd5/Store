@@ -1,118 +1,132 @@
 # -*- coding: utf-8 -*-
 
-
 from sorl.thumbnail import ImageField
 from django.contrib.auth.models import User
 from sorl.thumbnail.shortcuts import get_thumbnail
-
+from pytils import translit
+from shop.snippets import unique_slugify
 
 from django.db import models
 
-
-class Settings(models.Model):
-    title = models.CharField(max_length=60, blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, null=True)
-    tel = models.CharField(max_length=30)
-    email = models.CharField(max_length=40)
-
-    def __unicode__(self):
-        return self.title
-
-class Slider(models.Model):
-    title = models.CharField(max_length=30, blank=True, null=True)
-    description = models.CharField(max_length=40, blank=True, null=True)
-    image = models.ImageField(upload_to='slides')
-    url = models.URLField(max_length=100)
-
-    def __unicode__(self):
-        return self.title
-
-class HomeBanners(models.Model):
-    title = models.CharField(max_length=30, blank=True, null=True)
-    description = models.CharField(max_length=40, blank=True, null=True)
-    image = models.ImageField(upload_to='homebanners')
-    url = models.URLField(max_length=100)
-
-    def __unicode__(self):
-        return self.title
-
-class Pages(models.Model):
+class  Settings(models.Model):
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=60, blank=True, null=True)
-    content = models.TextField()
-    slug = models.SlugField()
-    menu = models.BooleanField(default=False)
-    menu_name = models.CharField(max_length=25)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=25)
+    email = models.EmailField(max_length=40)
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.title
+
+class Page(models.Model):
+    name = models.CharField(max_length=100)
+    short_name = models.CharField(max_length=25, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True)
+    active = models.BooleanField(default=False)
+    position = models.PositiveSmallIntegerField(default=999)
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translit.slugify(self.name)
+        unique_slugify(self, self.slug)
+        super(Page, self).save()
 
 class Producer(models.Model):
     name = models.CharField(max_length=50)
-    content = models.TextField()
+    description = models.TextField()
 
     def __unicode__(self):
         return self.name
 
 class Category(models.Model):
-    title = models.CharField(max_length=60)
-    slug = models.SlugField()
-    description = models.TextField()
+    name = models.CharField(max_length=60)
+    slug = models.SlugField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
-        return self.title
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translit.slugify(self.name)
+        unique_slugify(self, self.slug)
+        super(Category, self).save()
+
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
-    collection = models.ForeignKey('Collection', blank=True, null=True, on_delete=models.SET_NULL)
     price = models.PositiveIntegerField()
     old_price = models.PositiveIntegerField(blank=True, null=True)
     hit_counter = models.PositiveIntegerField(default=0)
     qty = models.PositiveSmallIntegerField(default=0)
     producer = models.ForeignKey(Producer,blank=True, null=True, on_delete=models.SET_NULL)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translit.slugify(self.name)
+        unique_slugify(self, self.slug)
+        super(Product, self).save()
+
 class Collection(models.Model):
-    title = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     accessories = models.ManyToManyField(Product,related_name='accessories', blank=True, null=True)
+    products = models.ManyToManyField(Product,related_name='product', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
-        return self.title
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translit.slugify(self.name)
+        unique_slugify(self, self.slug)
+        super(Collection, self).save()
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product)
-    title = models.CharField(blank=True, max_length=100, null=True)
-    image = ImageField(upload_to='/product')
+    image = ImageField(upload_to='product')
     position = models.PositiveSmallIntegerField(default=999)
 
     class Meta:
         ordering = ('position', )
 
     def __unicode__(self):
-        return self.title
-
+        return self.image.url
 
 class ShippingMethod(models.Model):
-    active = models.BooleanField(default=False)
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=1000, blank=True, null=True)
-    price = models.PositiveIntegerField()
-    day = models.PositiveIntegerField(blank=True, null=True)
+    active = models.BooleanField(default=False)
+    price = models.PositiveIntegerField(default=0)
+    days = models.PositiveIntegerField(blank=True, null=True)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
         return self.name
 
+
 class PaymentMethod(models.Model):
-    active = models.BooleanField(default=False)
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=1000, blank=True, null=True)
+    active = models.BooleanField(default=False)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
         return self.name

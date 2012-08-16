@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="slider container">
+    <div class="slider-wrap">
+                {% for slide in slider %}<a href="{{ slide.url }}" class="item"><img src="{{ slide.image }}"></a> {% endfor %}
+    </div>
+</div>
+<div class="wowbar container">
+    <div class="wow-inner wrap">
+        <ul class="nav">
+            <li><i class="icon-shipping"></i></li><li><a href="#" title="Бесплатная доставка по России">БЕСПЛАТНАЯ ДОСТАВКА</a></li>
+            <li><i class="icon-time"></i></li><li><a href="#" title="Мы платим за Ваше ожидание">ПЛАТИМ ЗА ОЖИДАНИЕ</a></li>
+            <li><i class="icon-moneyback"></i></li><li><a href="#" title="100% Гарантия возврата и обмена">100% ГАРАНТИЯ ВОЗВРАТА И ОБМЕНА</a></li>
+        </ul>
+    </div>
+    <div class="wow-shadow"></div>
+</div>
+<div class="home-offers container">
+    {% for banner in banners %}<a href="{{ banner.url }}" title="{{ banner.title }}"><img src="{{ banner.image }}"  " alt="{{ banner.description }}"></a>{% endfor %}
+  </div>
+<div class="home-widgets container">
+
+    <div class="video">
+        <a href="http://www.youtube.com/embed/GpnU9TbHNvk" class="model-toggle youtube" rel="popup-video"><img src="/img/why.jpg"  alt="Почему стоит покупать у нас?"></a>
+    </div>
+    <div class="social-widget wrap">
+        <div id="vk-groups"></div>
+    </div>
+</div>
+{% endblock %}
