@@ -46,9 +46,16 @@ def insert_cat():
         for t in titles:
             c = Category.objects.create(
                 name = t,
+                active = True,
                 description = u'Текст описания категории в оснавном для СЕО. Пользователь это даже не будет четать, но поисковику может пригодиться',
             )
+        c = Category.objects.create(
+            name = u'Hidden test category',
+            active = False,
+            description = u'Текст описания категории в оснавном для СЕО. Пользователь это даже не будет четать, но поисковику может пригодиться',
+        )
         get_status('Category', True)
+
 
 def insert_collections():
     try:

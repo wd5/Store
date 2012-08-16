@@ -48,6 +48,7 @@ class Category(models.Model):
     slug = models.SlugField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     position = models.PositiveSmallIntegerField(default=999)
+    active = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
