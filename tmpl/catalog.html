@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block description %}{% endblock%}
+
+{% block title %} Каталог товаров {% endblock%}
+
+{% block content %}
+
+    {% include "bcrumbs.html" %}
+    <div class="page-header container"><h1>{{ page_name }}</h1></div>
+    <div class="container">
+        <div class="catbar wrap">
+            <ul>
+                <li><h5>Выберите категорию</h5></li>
+                {% for category in categories %}
+                    <li><a href="{{ category.get_absolute_url }}" title="Телефоны">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <ul>
+                <li><h5>Производитель</h5></li>
+                <li><a href="cat2.html" title="Телефоны">Apple</a></li>
+
+            </ul>
+        </div>
+        <div class="content wrap">
+            {% for category in categories %}
+            <div class="result wrap">
+                <div class="result-header wrap">
+                    <h6>{{ category.name }}</h6>
+                    <a href="{{ category.get_absolute_url }}" title="Все {{ category.name }}" >Посмотреть все</a>
+                </div>
+                {% for product in category.get_product_set_3 %}
+                <div class="item wrap">
+                    <ul>
+                        <li><a href="product.html" title="Товар 1"><img src="{{ product.get_thumbnail_cat }}" ></a></li>
+                        <li><a href="product.html" title="Товар 1">iPhone 4S 64Gb WiFi LTE Black</a></li>
+                        <li><h5>27 500р.</h5></li>
+                        <li><p><small>Есть в наличии</small></p></li>
+                    </ul>
+                    <div class="active"><a href="#" title="Добавить в корзину" class="btn">Добавить в корзину</a></div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

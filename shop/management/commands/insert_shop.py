@@ -43,12 +43,15 @@ def insert_cat():
             u'Консоли',
             u'Акссесуары',
             )
+        i=1
         for t in titles:
             c = Category.objects.create(
                 name = t,
                 active = True,
+                position = i,
                 description = u'Текст описания категории в оснавном для СЕО. Пользователь это даже не будет четать, но поисковику может пригодиться',
             )
+            i+=1
         c = Category.objects.create(
             name = u'Hidden test category',
             active = False,

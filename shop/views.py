@@ -33,4 +33,13 @@ def catalog(request):
         categories = Category.objects.filter(active=True)
     except ObjectDoesNotExist:
         categories = {}
+    context = {
+        'categories':categories,
+
+        'page_name': u'Каталог',
+        'bcrumbs': [
+                {'url': reverse('home'), 'title': u'Главная'},
+        ],
+        }
+    return direct_to_template(request, 'catalog.html', context)
 

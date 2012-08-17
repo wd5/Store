@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from sorl.thumbnail.shortcuts import get_thumbnail
 from pytils import translit
 from shop.snippets import unique_slugify
+from django.core.urlresolvers import reverse
 
 from django.db import models
 
@@ -49,15 +50,25 @@ class Category(models.Model):
     description = models.TextField(blank=True, null=True)
     position = models.PositiveSmallIntegerField(default=999)
     active = models.BooleanField(default=False)
+    position = models.PositiveSmallIntegerField(default=999)
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ('position', )
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = translit.slugify(self.name)
         unique_slugify(self, self.slug)
         super(Category, self).save()
+
+    def get_absolute_url(self):
+        return reverse('category', args=[self.slug])
+
+    def get_product_set_3(self):
+        return   self.product_set.all()[:3]
 
 
 
@@ -81,6 +92,15 @@ class Product(models.Model):
             self.slug = translit.slugify(self.name)
         unique_slugify(self, self.slug)
         super(Product, self).save()
+
+    class Meta:
+        ordering = ('position', )
+
+    def get_thumbnail_cat(self):
+        images =self.productimage_set.all()[0]
+        img = images.image
+        height=210
+        return unicode(get_thumbnail(img, 'x%i' % (height)).url)
 
 class Collection(models.Model):
     name = models.CharField(max_length=20)
